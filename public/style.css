@@ -71,7 +71,8 @@ body {}
   margin: auto;
 }
 
-.starTrek_Ship {
+.starTrekShip {
+  transform: rotate(30deg);
   width: 100%;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
@@ -79,7 +80,7 @@ body {}
   transition: all 0.1s ease-in-out;
 }
 
-/* .box {
+.box {
   transform: rotate(-130deg);
   position: absolute;
   left: 385px;
@@ -87,12 +88,12 @@ body {}
   border: 1px solid black;
   width: 30px;
   height: 30px;
-  background-color: blue;
+  /* background-color: blue; */
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
-} */
+}
 
 
 
@@ -109,7 +110,7 @@ body {}
 
 
 
-/* .fireme {
+.fireme {
   position: absolute;
   top: 0;
   left: 0;
@@ -118,7 +119,7 @@ body {}
   z-index: 1;
 }
 
-.baddy {
+/* .baddy {
   position: absolute;
   padding: 5px;
   text-align: center;

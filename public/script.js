@@ -17,8 +17,12 @@ container.addEventListener('mousedown', mouseDown)
 container.addEventListener('mousemove', movePosition)
 
 function movePosition(e) {
-  console.log(e)
-  let mouseAngle = getDeg(e)
+  let deg = getDeg(e)
+  box.style.webkitTransform = 'rotate(' + deg + 'deg)'
+  box.style.mozTransform = 'rotate(' + deg + 'deg)'
+  box.style.msTransform = 'rotate(' + deg + 'deg)'
+  box.style.oTransform = 'rotate(' + deg + 'deg)'
+  box.style.transform = 'rotate(' + deg + 'deg)'
 }
 
 function getDeg(e) {
@@ -26,9 +30,22 @@ function getDeg(e) {
   return angle * (180 / Math.PI)
 }
 
+function degRad(deg) {
+  return deg * (Math.PI / 180)
+}
+
 function mouseDown(e) {
   if (gamePlay) {
-    console.log('FIRE')
+    let div = document.createElement('div')
+    let deg = getDeg(e)
+    div.setAttribute('class', 'fireme')
+    div.moverx = 5 * Math.sin(degRad(deg))
+    div.movery = -5 * Math.cos(degRad(deg))
+    div.style.left = boxCenter[0] - 5 + 'px'
+    div.style.top = boxCenter[1] - 5 + 'px'
+    div.style.width = 10 + 'px'
+    div.style.height = 10 + 'px'
+    container.appendChild(div)
   }
 }
 
@@ -44,9 +61,17 @@ function startGame() {
   animateGame = requestAnimationFrame(playGame)
 }
 
+function moveShots() {
+  let tempShots = document.querySelectorAll('.fireme')
+  for (let shot of tempShots) {
+    shot.style.top = shot.offsetTop + shot.movery + 'px'
+    shot.style.left = shot.offsetLeft + shot.moverx + 'px'
+  }
+}
+
 function playGame() {
   if (gamePlay) {
-    //move shots
+    moveShots()
     //update dashboard
     //move enemy
     animateGame = requestAnimationFrame(playGame)
