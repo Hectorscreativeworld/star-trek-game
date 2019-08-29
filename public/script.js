@@ -1,7 +1,54 @@
-const main = () => {
-  if (document.querySelector('h1.hello-world')) {
-    document.querySelector('h1.hello-world').textContent = 'Hello, World!'
+const btnStart = document.querySelector('.btnStart')
+const gameOverEle = document.getElementById('gameOverEle')
+const container = document.getElementById('container')
+const box = document.querySelector('.box')
+const boxCenter = [
+  box.offsetLeft + box.offsetWidth / 2,
+  box.offsetTop + box.offsetHeight / 2
+]
+console.log(boxCenter)
+
+let gamePlay = false
+let player
+let animateGame
+
+btnStart.addEventListener('click', startGame)
+container.addEventListener('mousedown', mouseDown)
+container.addEventListener('mousemove', movePosition)
+
+function movePosition(e) {
+  console.log(e)
+  let mouseAngle = getDeg(e)
+}
+
+function getDeg(e) {
+  let angle = Math.atan2(e.clientX - boxCenter[0], -(e.clientY - boxCenter[1]))
+  return angle * (180 / Math.PI)
+}
+
+function mouseDown(e) {
+  if (gamePlay) {
+    console.log('FIRE')
   }
 }
 
-document.addEventListener('DOMContentLoaded', main)
+function startGame() {
+  gamePlay = true
+  gameOverEle.style.display = 'none'
+  player = {
+    score: 0,
+    barwidth: 100,
+    lives: 100
+  }
+  //setup badguys
+  animateGame = requestAnimationFrame(playGame)
+}
+
+function playGame() {
+  if (gamePlay) {
+    //move shots
+    //update dashboard
+    //move enemy
+    animateGame = requestAnimationFrame(playGame)
+  }
+}
