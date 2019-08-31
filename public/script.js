@@ -1,4 +1,10 @@
 const icons = ['starShip1', 'starShip2', 'starShip3', 'starship4']
+const images = [
+  'Star_wars_1.png',
+  'Star_wars_2.png',
+  'Star_wars_3.png',
+  'Star_wars_4.png'
+]
 
 const btnStart = document.querySelector('.btnStart')
 const gameOverEle = document.getElementById('gameOverEle')
@@ -75,7 +81,48 @@ function randomMe(num) {
 
 function badmaker() {
   let div = document.createElement('div')
-  let myIcon = ''
+  // let myIcon = 'fa-' + icons[randomMe(icons.length)];
+  let imgPath = '/images/' + images[randomMe(images.length) - 1]
+  let x, y, xmove, ymove
+  let randomStart = randomMe(4)
+  let dirSet = randomMe(4) + 1
+  let dirPos = randomMe(7) - 3
+
+  switch (randomStart) {
+    case 0:
+      x = 0
+      y = randomMe(600)
+      ymove = dirPos
+      xmove = dirSet
+      break
+    case 1:
+      x = 800
+      y = randomMe(600)
+      ymove = dirPos
+      xmove = dirSet * -1
+      break
+    case 2:
+      x = randomMe(800)
+      y = 0
+      ymove = dirSet
+      xmove = dirPos
+      break
+    case 3:
+      x = randomMe(800)
+      y = 600
+      ymove = dirSet * -1
+      xmove = dirPos
+      break
+  }
+  // div.innerHTML = '<i class="fas ' + myIcon + '"></i>';
+  div.innerHTML = '<img src="' + imgPath + '"></img>'
+  div.setAttribute('class', 'baddy')
+  div.style.fontSize = randomMe(20) + 30 + 'px'
+  div.style.left = x + 'px'
+  div.style.top = y + 'px'
+  div.moverx = xmove
+  div.movery = ymove
+  container.appendChild(div)
 }
 
 function moveShots() {

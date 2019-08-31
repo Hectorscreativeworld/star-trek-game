@@ -1,5 +1,4 @@
-body {
-}
+body {}
 
 .gamePlayArea {
   width: 800px;
@@ -14,7 +13,7 @@ body {
   font-family: 'Orbitron', sans-serif;
 }
 
-.dashboard > div {
+.dashboard>div {
   width: 48%;
   text-align: right;
   display: inline-block;
@@ -122,4 +121,11 @@ body {
   border: 1px dotted #555;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 25px;
+  width: 50px;
+  height: auto;
+}
+
+.baddy img {
+  width: 50px;
+  height: auto;
 }
