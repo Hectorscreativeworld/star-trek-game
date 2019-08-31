@@ -1,3 +1,5 @@
+const icons = ['starShip1', 'starShip2', 'starShip3', 'starship4']
+
 const btnStart = document.querySelector('.btnStart')
 const gameOverEle = document.getElementById('gameOverEle')
 const container = document.getElementById('container')
@@ -57,15 +59,39 @@ function startGame() {
     barwidth: 100,
     lives: 100
   }
-  //setup badguys
+  setupBadguys(10)
   animateGame = requestAnimationFrame(playGame)
+}
+
+function setupBadguys(num) {
+  for (let x = 0; x < num; x++) {
+    badmaker()
+  }
+}
+
+function randomMe(num) {
+  return Math.ceil(Math.random() * num)
+}
+
+function badmaker() {
+  let div = document.createElement('div')
+  let myIcon = ''
 }
 
 function moveShots() {
   let tempShots = document.querySelectorAll('.fireme')
   for (let shot of tempShots) {
-    shot.style.top = shot.offsetTop + shot.movery + 'px'
-    shot.style.left = shot.offsetLeft + shot.moverx + 'px'
+    if (
+      shot.offsetTop > 600 ||
+      shot.offsetTop < 0 ||
+      shot.offsetLeft > 800 ||
+      shot.offsetLeft < 0
+    ) {
+      shot.parentNode.removeChild(shot)
+    } else {
+      shot.style.top = shot.offsetTop + shot.movery + 'px'
+      shot.style.left = shot.offsetLeft + shot.moverx + 'px'
+    }
   }
 }
 

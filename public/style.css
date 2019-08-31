@@ -1,4 +1,5 @@
-body {}
+body {
+}
 
 .gamePlayArea {
   width: 800px;
@@ -13,7 +14,7 @@ body {}
   font-family: 'Orbitron', sans-serif;
 }
 
-.dashboard>div {
+.dashboard > div {
   width: 48%;
   text-align: right;
   display: inline-block;
@@ -95,9 +96,6 @@ body {}
   transition: all 0.1s ease-in-out;
 }
 
-
-
-
 .turret {
   position: absolute;
   height: 100%;
@@ -105,10 +103,8 @@ body {}
   margin-left: 30%;
   bottom: 35%;
   border-radius: 5px;
-  background-color: darkgrey;
+  /* background-color: darkgrey; */
 }
-
-
 
 .fireme {
   position: absolute;
@@ -119,14 +115,11 @@ body {}
   z-index: 1;
 }
 
-/* .baddy {
+.baddy {
   position: absolute;
   padding: 5px;
   text-align: center;
   border: 1px dotted #555;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 25px;
-
-
-
-} */
+}
