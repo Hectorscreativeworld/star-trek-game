@@ -73,7 +73,8 @@ body {}
 
 .starTrekShip {
   transform: rotate(30deg);
-  width: 100%;
+  width: 50px;
+
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
@@ -128,4 +129,5 @@ body {}
 .baddy img {
   width: 50px;
   height: auto;
+
 }

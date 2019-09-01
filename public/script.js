@@ -1,4 +1,4 @@
-const icons = ['starShip1', 'starShip2', 'starShip3', 'starship4']
+// const icons = ['starShip1', 'starShip2', 'starShip3', 'starship4']
 const images = [
   'Star_wars_1.png',
   'Star_wars_2.png',
@@ -79,13 +79,30 @@ function randomMe(num) {
   return Math.ceil(Math.random() * num)
 }
 
+function moveEnemy() {
+  let tempEnemy = document.querySelectorAll('.baddy')
+  for (let enemy of tempEnemy) {
+    if (
+      enemy.offsetTop > 500 ||
+      enemy.offsetTop < 0 ||
+      enemy.offsetLeft > 750 ||
+      enemy.offsetLeft < 0
+    ) {
+      enemy.parentNode.removeChild(enemy)
+    } else {
+      enemy.style.top = enemy.offsetTop + enemy.movery + 'px'
+      enemy.style.left = enemy.offsetLeft + enemy.moverx + 'px'
+    }
+  }
+}
+
 function badmaker() {
   let div = document.createElement('div')
   // let myIcon = 'fa-' + icons[randomMe(icons.length)];
   let imgPath = '/images/' + images[randomMe(images.length) - 1]
   let x, y, xmove, ymove
   let randomStart = randomMe(4)
-  let dirSet = randomMe(4) + 1
+  let dirSet = randomMe(5) + 2
   let dirPos = randomMe(7) - 3
 
   switch (randomStart) {
@@ -146,7 +163,7 @@ function playGame() {
   if (gamePlay) {
     moveShots()
     //update dashboard
-    //move enemy
+    moveEnemy()
     animateGame = requestAnimationFrame(playGame)
   }
 }
