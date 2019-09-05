@@ -1,19 +1,73 @@
-body {}
+body {
+  margin: 0%;
+}
+
+.banner-image {
+  background-image: url('./images/starWarsVsStarTrek.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* width: 100%; */
+  height: 50vh;
+}
+
+.character-choose {
+  background-color: black;
+  /* width: 100%; */
+  height: 50vh;
+}
+
+.choose-your-side {
+  margin-top: 0;
+  color: white;
+  text-align: center;
+  padding-top: 1.5rem;
+}
+
+.character-container {
+  display: flex;
+  justify-content: center;
+}
+.starTrekShip-image {
+  width: 30%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  transform: rotate(90deg);
+}
+
+.starWarShip-image {
+  width: 30%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  transform: rotate(-135deg);
+}
+
+.starTrek-click-text,
+.starWars-click-text {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 0%;
+}
 
 .gamePlayArea {
-  width: 800px;
-  height: 600px;
-  background-color: blue;
+  width: 100%;
+  height: 100vh;
+  /* background-color: blue; */
   overflow: hidden;
+  position: relative;
 }
 
 .dashboard {
+  display: none;
   color: white;
   font-size: 2rem;
   font-family: 'Orbitron', sans-serif;
 }
 
-.dashboard>div {
+.dashboard > div {
   width: 48%;
   text-align: right;
   display: inline-block;
@@ -53,25 +107,30 @@ body {}
 }
 
 #container {
-  background-color: black;
-  width: 90%;
-  height: 90%;
-  padding: 5%;
+  display: none;
+  /* background-color: black; */
+  background-image: url('./images/star\ bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
 }
 
 .base {
   border-radius: 5px;
   position: absolute;
+  transform: translate(-50%, -50%);
   width: 40px;
   height: 40px;
-  left: 380px;
-  top: 280px;
+  left: 50%;
+  top: 50%;
   background-color: #333;
   color: white;
   margin: auto;
 }
 
-.starTrekShip {
+.ship {
   transform: rotate(30deg);
   width: 50px;
 
@@ -129,5 +188,4 @@ body {}
 .baddy img {
   width: 50px;
   height: auto;
-
 }
