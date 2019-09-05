@@ -28,6 +28,7 @@ body {
   display: flex;
   justify-content: center;
 }
+
 .starTrekShip-image {
   width: 30%;
   height: auto;
@@ -121,10 +122,10 @@ body {
   border-radius: 5px;
   position: absolute;
   transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  left: 50%;
-  top: 50%;
+  width: 70px;
+  height: 70px;
+  left: 500px;
+  top: 330px;
   background-color: #333;
   color: white;
   margin: auto;
@@ -132,8 +133,9 @@ body {
 
 .ship {
   transform: rotate(30deg);
-  width: 50px;
-
+  width: 100%;
+  left: 206px;
+  top: 330px;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
@@ -143,11 +145,12 @@ body {
 .box {
   transform: rotate(-130deg);
   position: absolute;
-  left: 385px;
-  top: 285px;
+  transform: translate(-50%, -50%);
+  left: 206px;
+  top: 330px;
   border: 1px solid black;
-  width: 30px;
-  height: 30px;
+  width: 80px;
+  height: 80px;
   /* background-color: blue; */
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
@@ -181,11 +184,11 @@ body {
   border: 1px dotted #555;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 25px;
-  width: 50px;
+  width: 80px;
   height: auto;
 }
 
 .baddy img {
-  width: 50px;
+  width: 100%;
   height: auto;
 }

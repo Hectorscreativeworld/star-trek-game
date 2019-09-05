@@ -15,20 +15,18 @@ const base = document.querySelector('.base')
 const dashboard = document.querySelector('.dashboard')
 const scoreDash = document.querySelector('.scoreDash')
 const progressBar = document.querySelector('.progress-bar')
-const bannerimage = document.querySelector('.banner-image')
-const characterchoose = document.querySelector('.character-choose')
-const ship = document.querySelector('.ship')
-
-let height = window.innerHeight
-let width = window.innerWidth
-
-// var rect = box.getBoundingClientRect()
-// console.log(rect)
 const boxCenter = [
   box.offsetLeft + box.offsetWidth / 2,
   box.offsetTop + box.offsetHeight / 2
 ]
-console.log(boxCenter)
+const bannerimage = document.querySelector('.banner-image')
+const characterchoose = document.querySelector('.character-choose')
+const ship = document.querySelector('.ship')
+
+// var rect = box.getBoundingClientRect()
+// console.log(rect)
+let height = window.innerHeight
+let width = window.innerWidth
 
 let gamePlay = false
 let player
@@ -44,22 +42,23 @@ starWarsStart.addEventListener('click', () => {
   startGame()
 })
 
+container.addEventListener('mousedown', mouseDown)
+container.addEventListener('mousemove', movePosition)
+
 function startGame() {
   container.style.display = 'block'
   dashboard.style.display = 'block'
-  container.addEventListener('mousedown', mouseDown)
-  container.addEventListener('mousemove', movePosition)
+
   bannerimage.style.display = 'none'
   characterchoose.style.display = 'none'
-  console.log(isCollide(box, container))
   gamePlay = true
   gameOverEle.style.display = 'none'
   player = {
     score: 0,
-    barwidth: 100,
-    lives: 100
+    barwidth: 500,
+    lives: 100000
   }
-  setupBadguys(10)
+  setupBadguys(15)
   animateGame = requestAnimationFrame(playGame)
 }
 
@@ -72,11 +71,19 @@ function playGame() {
   }
 }
 
+function movePosition(e) {
+  let deg = getDeg(e)
+  box.style.webkitTransform = 'rotate(' + deg + 'deg)'
+  box.style.mozTransform = 'rotate(' + deg + 'deg)'
+  box.style.msTransform = 'rotate(' + deg + 'deg)'
+  box.style.oTransform = 'rotate(' + deg + 'deg)'
+  box.style.transform = 'rotate(' + deg + 'deg)'
+}
+
 function moveEnemy() {
   let tempEnemy = document.querySelectorAll('.baddy')
   let hitter = false
   let tempShots = document.querySelectorAll('.fireme')
-
   for (let enemy of tempEnemy) {
     if (
       enemy.offsetTop > 550 ||
@@ -136,15 +143,6 @@ function updateDash() {
   scoreDash.innerHTML = player.score
   let tempPer = (player.lives / player.barwidth) * 100 + '%'
   progressBar.style.width = tempPer
-}
-
-function movePosition(e) {
-  let deg = getDeg(e)
-  box.style.webkitTransform = 'rotate(' + deg + 'deg)'
-  box.style.mozTransform = 'rotate(' + deg + 'deg)'
-  box.style.msTransform = 'rotate(' + deg + 'deg)'
-  box.style.oTransform = 'rotate(' + deg + 'deg)'
-  box.style.transform = 'rotate(' + deg + 'deg)'
 }
 
 function isCollide(a, b) {
