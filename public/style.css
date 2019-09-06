@@ -47,6 +47,7 @@ body {
 
 .starTrek-click-text,
 .starWars-click-text {
+  cursor: pointer;
   color: white;
   font-size: 2rem;
   text-align: center;
