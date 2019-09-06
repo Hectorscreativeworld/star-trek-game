@@ -72,9 +72,9 @@ function startGame() {
   player = {
     score: 0,
     barwidth: 500,
-    lives: 10000
+    lives: 500
   }
-  setupBadguys(15)
+  setupBadguys(10)
   animateGame = requestAnimationFrame(playGame)
 }
 
