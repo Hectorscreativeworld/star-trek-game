@@ -1,9 +1,16 @@
 // const icons = ['starShip1', 'starShip2', 'starShip3', 'starship4']
-const images = [
+const starWarsImages = [
   'Star_wars_1.png',
   'Star_wars_2.png',
   'Star_wars_3.png',
   'Star_wars_4.png'
+]
+
+const starTrekImages = [
+  'Bird_Icon.png',
+  'Defient_Icons.png',
+  'Enterprise_Icons.png',
+  'Voyguer.png'
 ]
 
 const starTrekStart = document.querySelector('.starTrekShip-image')
@@ -15,10 +22,8 @@ const base = document.querySelector('.base')
 const dashboard = document.querySelector('.dashboard')
 const scoreDash = document.querySelector('.scoreDash')
 const progressBar = document.querySelector('.progress-bar')
-const boxCenter = [
-  box.offsetLeft + box.offsetWidth / 2,
-  box.offsetTop + box.offsetHeight / 2
-]
+let boxCenter = []
+
 const bannerimage = document.querySelector('.banner-image')
 const characterchoose = document.querySelector('.character-choose')
 const ship = document.querySelector('.ship')
@@ -29,15 +34,21 @@ let height = window.innerHeight
 let width = window.innerWidth
 
 let gamePlay = false
+let playerShip = ''
+
 let player
 let animateGame
 
 starTrekStart.addEventListener('click', () => {
+  ship.style.transform = 'none'
   ship.src = './images/StarTrek.png'
+  playerShip = 'starTrek'
   startGame()
 })
 
 starWarsStart.addEventListener('click', () => {
+  ship.style.transform = 'rotate(-45deg)'
+  playerShip = 'starWars'
   ship.src = './images/Star_wars_1.png'
   startGame()
 })
@@ -48,7 +59,12 @@ container.addEventListener('mousemove', movePosition)
 function startGame() {
   container.style.display = 'block'
   dashboard.style.display = 'block'
+  boxCenter.push(
+    box.offsetLeft + box.offsetWidth / 2,
+    box.offsetTop + box.offsetHeight / 2
+  )
 
+  console.log(boxCenter)
   bannerimage.style.display = 'none'
   characterchoose.style.display = 'none'
   gamePlay = true
@@ -56,7 +72,7 @@ function startGame() {
   player = {
     score: 0,
     barwidth: 500,
-    lives: 100000
+    lives: 10000
   }
   setupBadguys(15)
   animateGame = requestAnimationFrame(playGame)
@@ -73,11 +89,13 @@ function playGame() {
 
 function movePosition(e) {
   let deg = getDeg(e)
+  // console.log(deg)
   box.style.webkitTransform = 'rotate(' + deg + 'deg)'
   box.style.mozTransform = 'rotate(' + deg + 'deg)'
   box.style.msTransform = 'rotate(' + deg + 'deg)'
   box.style.oTransform = 'rotate(' + deg + 'deg)'
-  box.style.transform = 'rotate(' + deg + 'deg)'
+
+  box.style.transform = 'translate(-50%, -50%) rotate(' + deg + 'deg)'
 }
 
 function moveEnemy() {
@@ -86,9 +104,9 @@ function moveEnemy() {
   let tempShots = document.querySelectorAll('.fireme')
   for (let enemy of tempEnemy) {
     if (
-      enemy.offsetTop > 550 ||
+      enemy.offsetTop > height - 50 ||
       enemy.offsetTop < 0 ||
-      enemy.offsetLeft > 750 ||
+      enemy.offsetLeft > width - 50 ||
       enemy.offsetLeft < 0
     ) {
       enemy.parentNode.removeChild(enemy)
@@ -128,6 +146,11 @@ function gameOver() {
   gameOverEle.style.display = 'block'
   gameOverEle.querySelector('span').innerHTML =
     'GAME OVER<br>Your Score' + player.score
+  container.style.display = 'none'
+  dashboard.style.display = 'none'
+
+  bannerimage.style.display = 'block'
+  characterchoose.style.display = 'block'
   gamePlay = false
   let tempEnemy = document.querySelectorAll('.baddy')
   for (let enemy of tempEnemy) {
@@ -166,16 +189,18 @@ function degRad(deg) {
 }
 
 function mouseDown(e) {
+  console.log(gamePlay, 'running')
   if (gamePlay) {
     let div = document.createElement('div')
     let deg = getDeg(e)
     div.setAttribute('class', 'fireme')
     div.moverx = 5 * Math.sin(degRad(deg))
     div.movery = -5 * Math.cos(degRad(deg))
-    div.style.left = boxCenter[0] - 5 + 'px'
-    div.style.top = boxCenter[1] - 5 + 'px'
+    div.style.left = boxCenter[0] - 45 + 'px'
+    div.style.top = boxCenter[1] - 45 + 'px'
     div.style.width = 10 + 'px'
     div.style.height = 10 + 'px'
+    console.log('what is this div', div)
     container.appendChild(div)
   }
 }
@@ -191,8 +216,14 @@ function randomMe(num) {
 
 function badmaker() {
   let div = document.createElement('div')
+  let imgPath
   // let myIcon = 'fa-' + icons[randomMe(icons.length)];
-  let imgPath = '/images/' + images[randomMe(images.length)]
+  if (playerShip === 'starTrek') {
+    imgPath = '/images/' + starWarsImages[randomMe(starWarsImages.length)]
+  } else {
+    imgPath = '/images/' + starTrekImages[randomMe(starTrekImages.length)]
+  }
+
   let x, y, xmove, ymove
   let randomStart = randomMe(4)
   let dirSet = randomMe(5) + 2
@@ -228,6 +259,7 @@ function badmaker() {
   div.innerHTML = '<img src="' + imgPath + '"></img>'
   div.setAttribute('class', 'baddy img')
   div.style.fontSize = randomMe(20) + 30 + 'px'
+
   div.style.left = x + 'px'
   div.style.top = y + 'px'
   div.points = randomMe(5) + 1
