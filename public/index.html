@@ -2,11 +2,13 @@
 <html>
 
 <head lang="en">
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Star Trek Game</title>
   <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/style.css?v=1">
   <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
 </head>
 
@@ -16,15 +18,20 @@
     <div class="character-choose">
       <h1 class="choose-your-side">CHOOSE YOUR SIDE</h1>
       <div class="character-container">
-        <div>
+        <div id="starTrekBtn">
           <img class="starTrekShip-image" src="./images/StarTrek.png" alt="Startreck ship">
 
           <p class="starTrek-click-text">CLICK</p>
         </div>
-        <div>
+        <div id="starWarsBtn">
           <img class="starWarShip-image" src="./images/Star_wars_1.png" alt="StarWars ship">
           <p class="starWars-click-text">CLICK</p>
         </div>
+      </div>
+      <div id="d">
+        <ul>
+          <li>DUmmy Li </li>
+        </ul>
       </div>
     </div>
     <div class="dashboard">
