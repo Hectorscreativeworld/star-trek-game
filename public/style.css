@@ -45,13 +45,24 @@ body {
   transform: rotate(-135deg);
 }
 
+.starTrekShip-image {
+  cursor: url('/images/starTrekMousepointer.png'), pointer;
+}
+
+.starWarShip-image {
+  cursor: url('/images/StarwarsMousepointer.png'), pointer;
+}
+
 .starTrek-click-text,
 .starWars-click-text {
-  cursor: pointer;
   color: white;
   font-size: 2rem;
   text-align: center;
   margin-top: 0%;
+}
+
+#high-score {
+  color: white;
 }
 
 .gamePlayArea {
@@ -70,10 +81,9 @@ body {
   background-image: url('./images/HeaderBar.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-
 }
 
-.dashboard>div {
+.dashboard > div {
   width: 48%;
   text-align: right;
   display: inline-block;
@@ -138,7 +148,6 @@ body {
 }
 
 .ship {
-
   width: 100%;
 
   -webkit-transition: all 0.1s ease-in-out;
@@ -166,7 +175,6 @@ body {
 }
 
 .turret {
-
   position: absolute;
   height: 100%;
   width: 40%;
@@ -193,8 +201,8 @@ body {
   position: absolute;
   padding: 5px;
   text-align: center;
-  border: 1px dotted #555;
-  background-color: rgba(255, 255, 255, 0.1);
+  /* border: 1px dotted #555;
+  background-color: rgba(255, 255, 255, 0.1); */
   border-radius: 25px;
   width: 80px;
   height: auto;

@@ -13,8 +13,8 @@ const starTrekImages = [
   'Voyguer.png'
 ]
 
-const starTrekStart = document.querySelector('.starTrekShip-image')
-const starWarsStart = document.querySelector('.starWarShip-image')
+const starTrekStart = document.querySelector('#starTrekBtn')
+const starWarsStart = document.querySelector('#starWarsBtn')
 const gameOverEle = document.getElementById('gameOverEle')
 const container = document.getElementById('container')
 const box = document.querySelector('.box')
@@ -22,7 +22,24 @@ const base = document.querySelector('.base')
 const dashboard = document.querySelector('.dashboard')
 const scoreDash = document.querySelector('.scoreDash')
 const progressBar = document.querySelector('.progress-bar')
+const highscore = document.querySelector('#high-score')
+
 let boxCenter = []
+
+let starTrekSong = []
+let starTrekFire1 = []
+let starWarsSong = []
+let starWarsBlaster = []
+let gameSong = []
+let gameFire = []
+
+function preload() {
+  starTrekSong = new Audio('/sounds/NewStarTrekSong.mp3')
+  starTrekFire1 = new Audio('/sounds/StarTrekFireFinal.mp3')
+  starWarsSong = new Audio('/sounds/StarWarsSong.mp3')
+  starWarsBlaster = new Audio('/sounds/StarWarsblaster.mp3')
+}
+preload()
 
 const bannerimage = document.querySelector('.banner-image')
 const characterchoose = document.querySelector('.character-choose')
@@ -43,6 +60,8 @@ starTrekStart.addEventListener('click', () => {
   ship.style.transform = 'none'
   ship.src = './images/StarTrek.png'
   playerShip = 'starTrek'
+  gameSong = starTrekSong
+  gameFire = starTrekFire1
   startGame()
 })
 
@@ -50,6 +69,8 @@ starWarsStart.addEventListener('click', () => {
   ship.style.transform = 'rotate(-45deg)'
   playerShip = 'starWars'
   ship.src = './images/Star_wars_1.png'
+  gameSong = starWarsSong
+  gameFire = starWarsBlaster
   startGame()
 })
 
@@ -59,6 +80,7 @@ container.addEventListener('mousemove', movePosition)
 function startGame() {
   container.style.display = 'block'
   dashboard.style.display = 'block'
+  gameSong.play()
   boxCenter.push(
     box.offsetLeft + box.offsetWidth / 2,
     box.offsetTop + box.offsetHeight / 2
@@ -142,6 +164,13 @@ function moveEnemy() {
 }
 
 function gameOver() {
+  addScore('Seth', player.score)
+  try {
+    gameSong.pause()
+    gameSong.currentTime = 0
+  } catch (error) {
+    console.log(error)
+  }
   cancelAnimationFrame(animateGame)
   gameOverEle.style.display = 'block'
   gameOverEle.querySelector('span').innerHTML =
@@ -191,6 +220,7 @@ function degRad(deg) {
 function mouseDown(e) {
   console.log(gamePlay, 'running')
   if (gamePlay) {
+    gameFire.play()
     let div = document.createElement('div')
     let deg = getDeg(e)
     div.setAttribute('class', 'fireme')
@@ -283,4 +313,124 @@ function moveShots() {
       shot.style.left = shot.offsetLeft + shot.moverx + 'px'
     }
   }
+}
+
+let _db = null
+
+function fireBaseSetup() {
+  var firebaseConfig = {
+    apiKey: 'AIzaSyAWX1peSMkWFwHTgIbfImMm7Q5HvwJxDyU',
+    authDomain: 'startrekvsstarwars-a5d44.firebaseapp.com',
+    databaseURL: 'https://startrekvsstarwars-a5d44.firebaseio.com',
+    projectId: 'startrekvsstarwars-a5d44',
+    storageBucket: 'startrekvsstarwars-a5d44.appspot.com',
+    messagingSenderId: '812673557285',
+    appId: '1:812673557285:web:2737a07f79955c07d0f0cc'
+  }
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig)
+
+  _db = firebase.firestore()
+  const settings = { /* your settings... */ timestampsInSnapshots: true }
+  _db.settings(settings)
+}
+
+fireBaseSetup()
+
+function addScore(name, score) {
+  //let scores = []
+  let lowestScore = 0
+
+  _db
+    .collection('HighScores')
+    .get()
+    .then(function(snapshot) {
+      if (snapshot.docs && snapshot.docs.length > 0) {
+        lowestScore = snapshot.docs[0].data().score
+      }
+      let lowestKey = false
+
+      snapshot.docs.forEach(function(doc) {
+        let key = doc.id
+        let data = doc.data()
+        if (data.score < lowestScore) {
+          lowestScore = data.score
+          lowestKey = key
+        }
+      })
+
+      if (score > lowestScore || snapshot.docs.length < 10) {
+        console.log(`Score ${score} made the highscore list`)
+
+        let i =
+          snapshot.docs && snapshot.docs.length > 0 ? snapshot.docs.length : 0
+        let isFull = false
+        if (i > 9) {
+          i = 9
+          isFull = true
+        }
+        console.log(`Updating score_${i} ${name} ${score}`)
+        if (isFull) {
+          _db
+            .collection('HighScores')
+            .doc(`${lowestKey}`)
+            .set({
+              name,
+              score
+            })
+        } else {
+          _db
+            .collection('HighScores')
+            .doc(`score_${i}`)
+            .set({
+              name,
+              score
+            })
+        }
+      } else {
+        console.log(`Score ${score} did not make the highscore list`)
+      }
+      displayScores()
+    })
+}
+
+function displayScores() {
+  let scores = []
+  console.log('******SCORES**********')
+
+  _db
+    .collection('HighScores')
+    .get()
+    .then(function(snapshot) {
+      snapshot.docs.forEach(function(doc) {
+        let key = doc.key
+        let data = doc.data()
+        scores.push(data)
+      })
+      scores.sort((a, b) => {
+        return a.score < b.score
+      })
+
+      scores.forEach(x => {
+        console.log(`${x.name} ${x.score}`)
+      })
+      highscore.innerHTML = ''
+      function createScoreList(newScores) {
+        var ul = document.createElement('ul')
+        ul.setAttribute('id', 'scoreList')
+
+        document.getElementById('high-score').appendChild(ul)
+        newScores.forEach(renderScores)
+
+        function renderScores(element, index, arr) {
+          var li = document.createElement('li')
+          li.setAttribute('class', 'item')
+
+          ul.appendChild(li)
+
+          li.innerHTML = li.innerHTML + `${element.name}   ${element.score}`
+        }
+      }
+      createScoreList(scores)
+    })
 }
