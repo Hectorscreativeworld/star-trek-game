@@ -315,6 +315,7 @@ function moveShots() {
   }
 }
 
+//******HIGHSCORE******
 let _db = null
 
 function fireBaseSetup() {

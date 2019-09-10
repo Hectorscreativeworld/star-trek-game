@@ -83,7 +83,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.dashboard > div {
+.dashboard>div {
   width: 48%;
   text-align: right;
   display: inline-block;
@@ -105,13 +105,10 @@ body {
 }
 
 #gameOverEle {
-  position: fixed;
-  width: 600px;
-  left: 20px;
-  top: 60%;
   color: white;
   font-size: 2rem;
   text-align: center;
+  /* background-color: blue; */
 }
 
 .btnStart {
@@ -142,7 +139,7 @@ body {
   width: 70px;
   height: 70px;
 
-  background-color: #333;
+  /* background-color: #333; */
   color: white;
   margin: auto;
 }
