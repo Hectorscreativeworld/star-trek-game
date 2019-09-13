@@ -22,21 +22,16 @@ const base = document.querySelector('.base')
 const dashboard = document.querySelector('.dashboard')
 const scoreDash = document.querySelector('.scoreDash')
 const progressBar = document.querySelector('.progress-bar')
-const highscore = document.getElementById('high-score')
-const nameForm = document.getElementById('nameEntry')
-const submitButton = document.getElementById('submitBtn')
-const playerNameInput = document.getElementById('playerName')
+const highscore = document.querySelector('#high-score')
 
-let rotateOffset = 0
 let boxCenter = []
+
 let starTrekSong = []
 let starTrekFire1 = []
 let starWarsSong = []
 let starWarsBlaster = []
 let gameSong = []
 let gameFire = []
-
-let playerName = ''
 
 function preload() {
   starTrekSong = new Audio('/sounds/NewStarTrekSong.mp3')
@@ -50,6 +45,8 @@ const bannerimage = document.querySelector('.banner-image')
 const characterchoose = document.querySelector('.character-choose')
 const ship = document.querySelector('.ship')
 
+// var rect = box.getBoundingClientRect()
+// console.log(rect)
 let height = window.innerHeight
 let width = window.innerWidth
 
@@ -59,24 +56,12 @@ let playerShip = ''
 let player
 let animateGame
 
-function handleNameEntry() {
-  if (playerNameInput.value) {
-    console.log(playerNameInput.value)
-    console.log(player.score)
-    nameForm.style.visibility = 'hidden'
-    addScore(playerNameInput.value, player.score)
-  }
-}
 starTrekStart.addEventListener('click', () => {
   ship.style.transform = 'none'
   ship.src = './images/StarTrek.png'
   playerShip = 'starTrek'
   gameSong = starTrekSong
   gameFire = starTrekFire1
-  playerName = 'Spock'
-
-  // hack for shooting streight ahead Offset
-  rotateOffset = -45
   startGame()
 })
 
@@ -86,8 +71,6 @@ starWarsStart.addEventListener('click', () => {
   ship.src = './images/Star_wars_1.png'
   gameSong = starWarsSong
   gameFire = starWarsBlaster
-  playerName = 'Seth'
-
   startGame()
 })
 
@@ -96,9 +79,8 @@ container.addEventListener('mousemove', movePosition)
 
 function startGame() {
   container.style.display = 'block'
-  dashboard.style.display = 'flex'
+  dashboard.style.display = 'block'
   gameSong.play()
-  gameSong.loop = true
   boxCenter.push(
     box.offsetLeft + box.offsetWidth / 2,
     box.offsetTop + box.offsetHeight / 2
@@ -114,13 +96,7 @@ function startGame() {
     barwidth: 500,
     lives: 500
   }
-
-  if (window.screen.width > 450) {
-    setupBadguys(10)
-  } else {
-    setupBadguys(2)
-  }
-
+  setupBadguys(10)
   animateGame = requestAnimationFrame(playGame)
 }
 
@@ -134,8 +110,8 @@ function playGame() {
 }
 
 function movePosition(e) {
-  let deg = getDeg(e) + rotateOffset
-
+  let deg = getDeg(e)
+  // console.log(deg)
   box.style.webkitTransform = 'rotate(' + deg + 'deg)'
   box.style.mozTransform = 'rotate(' + deg + 'deg)'
   box.style.msTransform = 'rotate(' + deg + 'deg)'
@@ -188,8 +164,7 @@ function moveEnemy() {
 }
 
 function gameOver() {
-  // addScore('Seth', player.score)
-  nameEntry.style.visibility = 'visible'
+  addScore('Seth', player.score)
   try {
     gameSong.pause()
     gameSong.currentTime = 0
@@ -247,7 +222,7 @@ function mouseDown(e) {
   if (gamePlay) {
     gameFire.play()
     let div = document.createElement('div')
-    let deg = getDeg(e) + -45
+    let deg = getDeg(e)
     div.setAttribute('class', 'fireme')
     div.moverx = 5 * Math.sin(degRad(deg))
     div.movery = -5 * Math.cos(degRad(deg))
@@ -507,7 +482,7 @@ function displayScores() {
         scores.push(data)
       })
       scores.sort((a, b) => {
-        return b.score - a.score
+        return a.score < b.score
       })
 
       scores.forEach(x => {
@@ -533,5 +508,3 @@ function displayScores() {
       createScoreList(scores)
     })
 }
-
-displayScores()

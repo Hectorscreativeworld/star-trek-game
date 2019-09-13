@@ -5,7 +5,6 @@ body {
 
 body {
   margin: 0%;
-
 }
 
 .banner-image {
@@ -13,13 +12,11 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-
   height: 50vh;
 }
 
 .character-choose {
   background-color: black;
-
   height: 50vh;
 }
 
@@ -70,34 +67,42 @@ body {
 }
 
 #high-score {
+  display: flex;
+  justify-content: center;
   color: white;
-  list-style-type: none;
-  font-size: 2rem;
 
+  font-size: 2rem;
+  text-align: left;
+}
+
+#scoreList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
 .gamePlayArea {
   width: 100%;
   height: 100vh;
 
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 }
 
 .dashboard {
   display: none;
+  justify-content: flex-end;
   color: white;
   font-size: 2rem;
   font-family: 'Orbitron', sans-serif;
   background-image: url('./images/HeaderBar.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-}
-
-.dashboard>div {
-  width: 48%;
-  text-align: right;
-  display: inline-block;
+  padding: 0.5rem;
 }
 
 .progress {
@@ -106,6 +111,9 @@ body {
   background-color: #333;
   border-radius: 25px;
   border: 1px solid black;
+  display: inline-block;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 }
 
 .progress-bar {
@@ -119,7 +127,6 @@ body {
   color: white;
   font-size: 2rem;
   text-align: center;
-
 }
 
 .btnStart {
@@ -131,7 +138,6 @@ body {
 
 #container {
   display: none;
-
   background-image: url('./images/star\ bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
@@ -214,7 +220,36 @@ body {
   margin-bottom: 30%;
 }
 
+.bragging-section {
+  background: #333;
+  padding-bottom: 10%;
+}
+
 .bragging-text {
   color: #f8f8f8;
   margin-top: 0%;
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+@media only screen and (max-width: 450px) {
+  .progress {
+    height: 20px;
+    width: 60%;
+    display: inline-block;
+    margin-right: 2rem;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 20px;
+  }
+
+  .banner-image {
+    background-image: url('./images/starWarsVsStarTrek003.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50vh;
+  }
 }
