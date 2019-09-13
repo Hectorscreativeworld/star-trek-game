@@ -129,12 +129,12 @@ body {
   text-align: center;
 }
 
-.btnStart {
+/* .btnStart {
   padding: 15px;
   border: 1px solid white;
   background-color: red;
   font-size: 3rem;
-}
+} */
 
 #container {
   display: none;
@@ -215,10 +215,15 @@ body {
   height: auto;
 }
 
-.nameEntry {
-  padding-bottom: 3rem;
-  margin-bottom: 30%;
+#nameEntry {
+  padding-bottom: 1rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+
 
 .bragging-section {
   background: #333;
